@@ -175,7 +175,6 @@ void build_request(const char *url)
 	strcat(request, " ");	
 	printf("Request: %s\n", request);
 	// make sure: http url is valid.
-	if(NULL==strstr(url, "://"))
 	if(NULL==strstr(url,"://"))
 	{
 		fprintf(stderr, "%s is not a valid URL", url);
