@@ -1,0 +1,18 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+METHOD_GET	webbench.c	18;"	d	file:
+METHOD_HEAD	webbench.c	19;"	d	file:
+METHOD_OPTIONS	webbench.c	20;"	d	file:
+METHOD_TRACE	webbench.c	21;"	d	file:
+PROGRAM_VERSION	webbench.c	22;"	d	file:
+bytes	webbench.c	/^int bytes=0;$/;"	v
+clients	webbench.c	/^int clients=1;$/;"	v
+failed	webbench.c	/^int failed=0;$/;"	v
+http10	webbench.c	/^int http10=1;$/;"	v
+method	webbench.c	/^int method=METHOD_GET;$/;"	v
+speed	webbench.c	/^int speed=0;$/;"	v
+timerexpired	webbench.c	/^volatile int timerexpired=0;$/;"	v
