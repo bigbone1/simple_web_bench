@@ -24,7 +24,7 @@ int http10=1;
 #define METHOD_HEAD 1
 #define METHOD_OPTIONS 2
 #define METHOD_TRACE 3
-#define PROGRAM_VERSION "1.5"
+#define PROGRAM_VERSION "1.0"
 int method=METHOD_GET;
 int clients=1;
 int force=0;
@@ -91,7 +91,6 @@ int main(int argc, char *argv[])
 	//参数个数识别
 	if (argc==1)
 		usage();
-	printf("argc is %d\n", argc);
 	while((opt=getopt_long(argc, argv, "912Vfrt:p:c:?h", long_options, &options_index)) != EOF)
 	{
 		switch (opt)
@@ -145,17 +144,21 @@ int main(int argc, char *argv[])
 	if(benchtime==0) benchtime==30;
 
 	int i=0;
+	printf("Args list:\r\n");
 	for(i;i<=optind;i++)
+	{
 		printf("Arg %d is:  %s\n", i, argv[i]);
-	printf("Args end: %s\n", argv[optind]);
+	}
+	printf("\r\n");
+
 	build_request(argv[optind]);
-	printf("Build request: over\n");
 	exit(0);
 }
 
 void build_request(const char *url)
 {
 	int i;
+	char *tmp;
 
 	memset(host, 0, MAXHOSTNAMELEN);
 	memset(request, 0, REQUEST_SIZE);
@@ -173,7 +176,6 @@ void build_request(const char *url)
 		break;
 	}
 	strcat(request, " ");	
-	printf("Request: %s\n", request);
 	// make sure: http url is valid.
 	if(NULL==strstr(url,"://"))
 	{
@@ -196,8 +198,55 @@ void build_request(const char *url)
 		fprintf(stderr, "URL: %s not ends with '/'", url);
 	}
 
+	// get proxyhost from url
+	if (proxyhost==NULL)
+	{	
+		strcat(request+strlen(request), url+i+strcspn(url+i, "/"));
+		if (NULL!=index(url+i, ':') && index(url+i, ':') < index(proxyhost, '/'))
+		{	
+			strncpy(host, url, index(url+i, ':')-url);
+			strncpy(tmp, index(url+i, ':')+1, index(url+i, '/')-index(url+i, ':')-1);
+			proxyport=atoi(tmp);
+			if (proxyport==0) proxyport=80;
+		}
+		// default port nnumber and hostname.
+		else
+		{
+			proxyport=80;
+			strncpy(host, url, index(url+i, '/')-url);
+		}
+	}
+	else
+	{
+		strcat(request, url);
+	}
 
-	
+	strcat(request, " ");
+	if (http10==1)
+		strcat(request, " HTTP/1.0");
+	else if (http10==2)
+	{
+		strcat(request, " HTTP/1.1");
+	}
+	// printf("Request: %s\n", request);
+ 
+	strcat(request, "\r\n");
+
+	strcat(request, "User-Agent: SimpleWebBench/"PROGRAM_VERSION"\r\n");
+
+	if (proxyhost==NULL&&http10>0)
+	{
+		strcat(request, "Host: ");
+		strcat(request, host);
+		strcat(request, "\r\n");
+	}
+	if (force_reload)
+		strcat(request, "Pragme: no-cache\r\n");
+	strcat(request, "Connection: close");	
+
+	// add blank line, and pirnt request.
+	strcat(request, "\r\n");
+	printf("Request:\r\n%s", request);
 }
 
 
