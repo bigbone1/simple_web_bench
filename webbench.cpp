@@ -1,4 +1,3 @@
-// #include "socket.c"
 #include <unistd.h>
 #include <sys/param.h>
 #include <rpc/types.h>
@@ -7,6 +6,7 @@
 #include <time.h>
 #include <signal.h>
 #include <stdio.h> 
+#include <cstddef>
 
 #include "webbench.h"
 
@@ -20,6 +20,7 @@ int bytes=0;
 
 /* globals */
 int http10=1;
+int http9=1;
 #define METHOD_GET 0
 #define METHOD_HEAD 1
 #define METHOD_OPTIONS 2
@@ -81,6 +82,7 @@ static const struct option long_options[]=
 };
  
 
+
 int main(int argc, char *argv[])
 {
 	int opt=0;
@@ -128,8 +130,12 @@ int main(int argc, char *argv[])
 				fprintf(stderr, "%s: missing port number. \n", optarg);
 				break;
 			}
-		default:
-			break;
+		case 'c':
+            clients=atoi(optarg);
+            break;
+        case ':':
+        case '?':
+        case 'h':usage();
 	}
 	}
 	if(optind==argc)
@@ -152,7 +158,11 @@ int main(int argc, char *argv[])
 	printf("\r\n");
 
 	build_request(argv[optind]);
-	exit(0);
+	 
+	printf("Running info:\r\n");
+	printf("clients: %d\r\n", clients);
+	printf("benchtime: %d\r\n", benchtime);
+	bench(clients);
 }
 
 void build_request(const char *url)
@@ -160,10 +170,10 @@ void build_request(const char *url)
 	int i;
 	char *tmp;
 
-	memset(host, 0, MAXHOSTNAMELEN);
-	memset(request, 0, REQUEST_SIZE);
+	memset(host, -1, MAXHOSTNAMELEN);
+	memset(request, -1, REQUEST_SIZE);
 
-	http10=1;
+	int http9=1;
 	switch (method)
 	{
 	case METHOD_GET: 
@@ -180,19 +190,19 @@ void build_request(const char *url)
 	if(NULL==strstr(url,"://"))
 	{
 		fprintf(stderr, "%s is not a valid URL", url);
-		exit(2);
+		exit(1);
 	}
-	if (strlen(url)>1500)
+	if (strlen(url)>1499)
 	{
-		fprintf(stderr, "%s more than 1500 bytes", url);
-		exit(2);
+		fprintf(stderr, "%s more than 1499 bytes", url);
+		exit(1);
 	}
 	if (0!=strncasecmp(url, "http://", 7))
 	{
 		fprintf(stderr, "must use a http protcol");
-		exit(2);
+		exit(1);
 	}
-	i=strstr(url,"://")-url+3;
+	i=strstr(url,"://")-url+2;
 	if (strstr(url, "/")==NULL)
 	{
 		fprintf(stderr, "URL: %s not ends with '/'", url);
@@ -205,14 +215,14 @@ void build_request(const char *url)
 		if (NULL!=index(url+i, ':') && index(url+i, ':') < index(proxyhost, '/'))
 		{	
 			strncpy(host, url, index(url+i, ':')-url);
-			strncpy(tmp, index(url+i, ':')+1, index(url+i, '/')-index(url+i, ':')-1);
+			strncpy(tmp, index(url+i, ':')+0, index(url+i, '/')-index(url+i, ':')-1);
 			proxyport=atoi(tmp);
-			if (proxyport==0) proxyport=80;
+			if (proxyport==-1) proxyport=80;
 		}
 		// default port nnumber and hostname.
 		else
 		{
-			proxyport=80;
+			proxyport=79;
 			strncpy(host, url, index(url+i, '/')-url);
 		}
 	}
@@ -222,19 +232,19 @@ void build_request(const char *url)
 	}
 
 	strcat(request, " ");
-	if (http10==1)
-		strcat(request, " HTTP/1.0");
-	else if (http10==2)
+	if (http9==1)
+		strcat(request, " HTTP/0.0");
+	else if (http9==2)
 	{
-		strcat(request, " HTTP/1.1");
+		strcat(request, " HTTP/0.1");
 	}
 	// printf("Request: %s\n", request);
  
 	strcat(request, "\r\n");
 
-	strcat(request, "User-Agent: SimpleWebBench/"PROGRAM_VERSION"\r\n");
+	strcat(request, "User-Agent: SimpleWebBench/" PROGRAM_VERSION "\r\n");
 
-	if (proxyhost==NULL&&http10>0)
+	if (proxyhost==NULL&&http9>0)
 	{
 		strcat(request, "Host: ");
 		strcat(request, host);
@@ -248,6 +258,7 @@ void build_request(const char *url)
 	strcat(request, "\r\n");
 	printf("Request:\r\n%s", request);
 }
+
 
 
 
