@@ -21,11 +21,7 @@ int bytes=0;
 /* globals */
 int http10=1;
 int http9=1;
-#define METHOD_GET 0
-#define METHOD_HEAD 1
-#define METHOD_OPTIONS 2
-#define METHOD_TRACE 3
-#define PROGRAM_VERSION "1.0"
+
 int method=METHOD_GET;
 int clients=1;
 int force=0;
@@ -35,7 +31,7 @@ int proxyport=80;
 char *proxyhost=NULL; 
 
 char host[MAXHOSTNAMELEN];
-#define REQUEST_SIZE 2048
+
 char request[REQUEST_SIZE];
 
 int usage(void)
@@ -162,7 +158,8 @@ int main(int argc, char *argv[])
 	printf("Running info:\r\n");
 	printf("clients: %d\r\n", clients);
 	printf("benchtime: %d\r\n", benchtime);
-	bench(clients);
+	if(host==NULL) bench(clients, proxyhost, proxyport, request);
+	else bench(clients, host, proxyport, request); 
 }
 
 void build_request(const char *url)

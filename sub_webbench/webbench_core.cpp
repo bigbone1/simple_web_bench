@@ -2,9 +2,8 @@
 #include "unistd.h"
 
 #include <cstdio>
-
-
-int bench(int clients)
+ 
+int bench(const int clients, const char* host, const int port, const char* request)
 {
     pid_t pid=0;
     int mypipe[2];
@@ -28,7 +27,7 @@ int bench(int clients)
     for(i=0; i<clients;i++)
     {
         pid=fork();
-        if(pid < (pid_t) 0)
+        if(pid <= (pid_t) 0)
         {
             // I am a child process
             printf("Process failed\n");
@@ -40,10 +39,20 @@ int bench(int clients)
     {
         printf("Child Process\n");
     }
-    if(pid>(pid_t)0)
+    else if(pid>(pid_t)0)
     {
         printf("Father Process, ID: %d\n", pid);
     }
+    else
+    {
+        perror("fork error");
+    }
+    return 0;
+}
+
+int bench_core(const char* host, const int* port, const char* request)
+{
+    printf("bench_core.....\r\n");
     return 0;
 }
 

@@ -1,0 +1,32 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+.././sub_webbench/webbench.h
+
+/home/bone/cpp/simple_web_bench/webbench.cpp
+unistd.h
+-
+sys/param.h
+-
+rpc/types.h
+-
+getopt.h
+-
+string.h
+-
+time.h
+-
+signal.h
+-
+stdio.h
+-
+cstddef
+-
+webbench.h
+/home/bone/cpp/simple_web_bench/webbench.h
+

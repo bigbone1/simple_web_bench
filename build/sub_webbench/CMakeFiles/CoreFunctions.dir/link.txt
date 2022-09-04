@@ -1,0 +1,2 @@
+/usr/bin/ar qc ../../lib/libCoreFunctions.a  CMakeFiles/CoreFunctions.dir/webbench_core.cpp.o
+/usr/bin/ranlib ../../lib/libCoreFunctions.a
