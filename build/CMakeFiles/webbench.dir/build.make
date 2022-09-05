@@ -60,15 +60,15 @@ include CMakeFiles/webbench.dir/flags.make
 CMakeFiles/webbench.dir/webbench.cpp.o: CMakeFiles/webbench.dir/flags.make
 CMakeFiles/webbench.dir/webbench.cpp.o: ../webbench.cpp
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/bone/cpp/simple_web_bench/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/webbench.dir/webbench.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/webbench.dir/webbench.cpp.o -c /home/bone/cpp/simple_web_bench/webbench.cpp
+	/usr/bin/g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/webbench.dir/webbench.cpp.o -c /home/bone/cpp/simple_web_bench/webbench.cpp
 
 CMakeFiles/webbench.dir/webbench.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/webbench.dir/webbench.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/bone/cpp/simple_web_bench/webbench.cpp > CMakeFiles/webbench.dir/webbench.cpp.i
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/bone/cpp/simple_web_bench/webbench.cpp > CMakeFiles/webbench.dir/webbench.cpp.i
 
 CMakeFiles/webbench.dir/webbench.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/webbench.dir/webbench.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/bone/cpp/simple_web_bench/webbench.cpp -o CMakeFiles/webbench.dir/webbench.cpp.s
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/bone/cpp/simple_web_bench/webbench.cpp -o CMakeFiles/webbench.dir/webbench.cpp.s
 
 CMakeFiles/webbench.dir/webbench.cpp.o.requires:
 

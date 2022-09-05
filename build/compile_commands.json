@@ -1,0 +1,12 @@
+[
+{
+  "directory": "/home/bone/cpp/simple_web_bench/build",
+  "command": "/usr/bin/g++   -I/home/bone/cpp/simple_web_bench/. -I/home/bone/cpp/simple_web_bench/./sub_webbench  -g   -o CMakeFiles/webbench.dir/webbench.cpp.o -c /home/bone/cpp/simple_web_bench/webbench.cpp",
+  "file": "/home/bone/cpp/simple_web_bench/webbench.cpp"
+},
+{
+  "directory": "/home/bone/cpp/simple_web_bench/build/sub_webbench",
+  "command": "/usr/bin/g++   -I/home/bone/cpp/simple_web_bench/. -I/home/bone/cpp/simple_web_bench/./sub_webbench  -g   -o CMakeFiles/CoreFunctions.dir/webbench_core.cpp.o -c /home/bone/cpp/simple_web_bench/sub_webbench/webbench_core.cpp",
+  "file": "/home/bone/cpp/simple_web_bench/sub_webbench/webbench_core.cpp"
+}
+]

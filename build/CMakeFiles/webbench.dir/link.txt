@@ -1,1 +1,1 @@
-/usr/bin/c++     CMakeFiles/webbench.dir/webbench.cpp.o  -o ../bin/webbench ../lib/libCoreFunctions.a 
+/usr/bin/g++  -g   CMakeFiles/webbench.dir/webbench.cpp.o  -o ../bin/webbench ../lib/libCoreFunctions.a 

@@ -60,15 +60,15 @@ include sub_webbench/CMakeFiles/CoreFunctions.dir/flags.make
 sub_webbench/CMakeFiles/CoreFunctions.dir/webbench_core.cpp.o: sub_webbench/CMakeFiles/CoreFunctions.dir/flags.make
 sub_webbench/CMakeFiles/CoreFunctions.dir/webbench_core.cpp.o: ../sub_webbench/webbench_core.cpp
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/bone/cpp/simple_web_bench/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object sub_webbench/CMakeFiles/CoreFunctions.dir/webbench_core.cpp.o"
-	cd /home/bone/cpp/simple_web_bench/build/sub_webbench && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/CoreFunctions.dir/webbench_core.cpp.o -c /home/bone/cpp/simple_web_bench/sub_webbench/webbench_core.cpp
+	cd /home/bone/cpp/simple_web_bench/build/sub_webbench && /usr/bin/g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/CoreFunctions.dir/webbench_core.cpp.o -c /home/bone/cpp/simple_web_bench/sub_webbench/webbench_core.cpp
 
 sub_webbench/CMakeFiles/CoreFunctions.dir/webbench_core.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/CoreFunctions.dir/webbench_core.cpp.i"
-	cd /home/bone/cpp/simple_web_bench/build/sub_webbench && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/bone/cpp/simple_web_bench/sub_webbench/webbench_core.cpp > CMakeFiles/CoreFunctions.dir/webbench_core.cpp.i
+	cd /home/bone/cpp/simple_web_bench/build/sub_webbench && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/bone/cpp/simple_web_bench/sub_webbench/webbench_core.cpp > CMakeFiles/CoreFunctions.dir/webbench_core.cpp.i
 
 sub_webbench/CMakeFiles/CoreFunctions.dir/webbench_core.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/CoreFunctions.dir/webbench_core.cpp.s"
-	cd /home/bone/cpp/simple_web_bench/build/sub_webbench && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/bone/cpp/simple_web_bench/sub_webbench/webbench_core.cpp -o CMakeFiles/CoreFunctions.dir/webbench_core.cpp.s
+	cd /home/bone/cpp/simple_web_bench/build/sub_webbench && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/bone/cpp/simple_web_bench/sub_webbench/webbench_core.cpp -o CMakeFiles/CoreFunctions.dir/webbench_core.cpp.s
 
 sub_webbench/CMakeFiles/CoreFunctions.dir/webbench_core.cpp.o.requires:
 

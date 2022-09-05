@@ -9,6 +9,6 @@
 extern void build_request(const char *url);
 extern int usage(); 
 // extern int printf_info(const char *names, ); 
-extern int bench(const int clients, const char* host, const int port, const char* request);
+extern int bench(int clients, const char* host, const int port, const char* request);
 extern int Socket(const char *url);
 extern int bench_core(const char* host, const int port, const char* request);

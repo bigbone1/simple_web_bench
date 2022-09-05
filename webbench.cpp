@@ -12,15 +12,10 @@
 
 
 
-/*values*/
-volatile int timerexpired=0;
-int speed=0;
-int failed=0;
-int bytes=0;
+
 
 /* globals */
-int http10=1;
-int http9=1;
+int http10=1;   // 0:http0.9   1:http1.0  2:http1.1
 
 int method=METHOD_GET;
 int clients=1;
@@ -167,10 +162,9 @@ void build_request(const char *url)
 	int i;
 	char *tmp;
 
-	memset(host, -1, MAXHOSTNAMELEN);
-	memset(request, -1, REQUEST_SIZE);
+	memset(host, 0, MAXHOSTNAMELEN);
+	memset(request, 0, REQUEST_SIZE);
 
-	int http9=1;
 	switch (method)
 	{
 	case METHOD_GET: 
@@ -199,7 +193,7 @@ void build_request(const char *url)
 		fprintf(stderr, "must use a http protcol");
 		exit(1);
 	}
-	i=strstr(url,"://")-url+2;
+	i=strstr(url,"://")-url+3;
 	if (strstr(url, "/")==NULL)
 	{
 		fprintf(stderr, "URL: %s not ends with '/'", url);
@@ -208,48 +202,53 @@ void build_request(const char *url)
 	// get proxyhost from url
 	if (proxyhost==NULL)
 	{	
-		strcat(request+strlen(request), url+i+strcspn(url+i, "/"));
+		
 		if (NULL!=index(url+i, ':') && index(url+i, ':') < index(proxyhost, '/'))
 		{	
 			strncpy(host, url, index(url+i, ':')-url);
 			strncpy(tmp, index(url+i, ':')+0, index(url+i, '/')-index(url+i, ':')-1);
 			proxyport=atoi(tmp);
-			if (proxyport==-1) proxyport=80;
+			if (proxyport==0) proxyport=80;
 		}
-		// default port nnumber and hostname.
+		// default port number and hostname.
 		else
 		{
-			proxyport=79;
-			strncpy(host, url, index(url+i, '/')-url);
+			proxyport=80;
+			strncpy(host, url+i, strcspn(url+i, "/"));
 		}
+
+		strcat(request+strlen(request), url+i+strcspn(url+i, "/"));
+
 	}
 	else
 	{
 		strcat(request, url);
 	}
 
-	strcat(request, " ");
-	if (http9==1)
-		strcat(request, " HTTP/0.0");
-	else if (http9==2)
+	// strcat(request, " ");
+	if (http10==1)
+		strcat(request, " HTTP/1.0");
+	else if (http10==2)
 	{
-		strcat(request, " HTTP/0.1");
+		strcat(request, " HTTP/1.1");
 	}
 	// printf("Request: %s\n", request);
  
 	strcat(request, "\r\n");
+	if(http10>0)
+		strcat(request, "User-Agent: SimpleWebBench" PROGRAM_VERSION "\r\n");
 
-	strcat(request, "User-Agent: SimpleWebBench/" PROGRAM_VERSION "\r\n");
-
-	if (proxyhost==NULL&&http9>0)
+	
+	if (proxyhost==NULL && http10>0)
 	{
 		strcat(request, "Host: ");
 		strcat(request, host);
 		strcat(request, "\r\n");
 	}
-	if (force_reload)
+	// printf("%s", request);
+	if (force_reload && proxyhost!=NULL) 
 		strcat(request, "Pragme: no-cache\r\n");
-	strcat(request, "Connection: close");	
+	if(http10>1) strcat(request, "Connection: close\n");	
 
 	// add blank line, and pirnt request.
 	strcat(request, "\r\n");
